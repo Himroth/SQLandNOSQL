@@ -1,0 +1,35 @@
+
+NO SQL:
+
+Exercício 1:
+Use o banco books.json, o mesmo usado em aula
+Observação: Projete apenas o necessário nas buscas.
+
+- Faça uma busca de quantos livros não estão com o status publicado e pageCount menor que 300
+db.biblioteca.find({$and: [ {status: {$nin: ["PUBLISH"]}, pageCount: {$lt: 300}}]})
+
+
+- Faça uma busca de livros que contém as palavras MongoDB e SQL Server no título
+db.biblioteca.find({title: {$regex: /MongoDB|SQL/}}, {title: true})
+
+- Faça uma busca com expressão regular onde ISBN começa com 18
+db.biblioteca.find({isbn: {$regex: /^18./}}, {isbn: 1})
+
+
+- Usando Expressão Regular, busque livros que contém a palavra JAVA ou Mobile na descrição do
+livro (LongDescription), lembrando que deve trazer todas as palavras independente de começa com
+maiúsculo ou minúsculo
+
+db.biblioteca.find({ longDescription: {$regex: /.ava|.obile/}}, {longDescription: true})
+
+
+Exercício 2:
+Nas mesmas buscas do exercício anterior, traga apenas o número do resultado usando o contador
+
+db.biblioteca.find({$and: [ {status: {$nin: ["PUBLISH"]}, pageCount: {$lt: 350}}]}).count()
+
+db.biblioteca.find({title: {$regex: /MongoDB|SQL/}}, {title: true}).count()
+
+db.biblioteca.find({isbn: {$regex: /^18./}}, {isbn: 1}).count()
+
+db.biblioteca.find({ longDescription: {$regex: /.ava|.obile/}}, {longDescription: true}).count()
